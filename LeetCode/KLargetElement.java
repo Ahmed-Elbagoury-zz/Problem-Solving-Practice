@@ -66,5 +66,51 @@ public class KLargetElement{
     	}
     	return pq.peek();
     }
+    
+    
+    public int findKthLargestQuickSort(int [] nums, int k){
+       if(nums == null || nums.length == 0)
+           return -1;
+       	   int n = nums.length;
+           return findKathLargest(nums, 0, nums.length-1, n-k);
+   }
+   
+   public int findKathLargest(int [] nums, int st, int end, int k){
+       int pivot = partition(nums, st, end);
+       if(k == pivot)
+           return nums[pivot];
+       else if(k > pivot){
+           return findKathLargest(nums, pivot+1, end, k);
+       }
+       else
+           return findKathLargest(nums, st, pivot-1, k);
+       
+   }
+   
+   public int partition(int [] nums, int st, int end){
+       int pivotInd = end;
+       int pivot = nums[pivotInd];
+       int largerInd = st;
+       int smallerInd = st;
+       while(largerInd < end && smallerInd < end){
+           while(nums[largerInd] < pivot)
+               largerInd ++;
+           smallerInd = largerInd;
+           while(smallerInd < end && nums[smallerInd] >= pivot)
+               smallerInd ++;
+           swap(nums, smallerInd, largerInd);
+           pivotInd = largerInd;
+           largerInd++;
+       }
+       return pivotInd;
+   }
+   
+   public void swap(int [] nums, int ind1, int ind2){
+	   if(ind1 == ind2)
+		   return;
+       nums[ind1] += nums[ind2];
+       nums[ind2] = nums[ind1] - nums[ind2];
+       nums[ind1] -= nums[ind2];
+   }
 
 }
