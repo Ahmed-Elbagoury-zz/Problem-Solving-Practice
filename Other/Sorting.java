@@ -97,6 +97,41 @@ public class Sorting{
 //      	return st + (end-st)/2; //To pick the middle element
     	  return random.nextInt(end-st+1) + st;	//To return random number between st and end inclusive
       }
+      
+      public int partition(Comparable [] arr, int start, int end){
+    	  	 int indLarger = start;
+    	       int indSmaller = start;
+    	       int pivotInd = end;
+    	       Comparable pivot = arr[pivotInd];
+    	       
+    	       while(indSmaller < end && indLarger < end){
+    	    	   while(arr[indLarger].compareTo(pivot) == -1)	   
+    	           	indLarger++;
+    	           indSmaller = indLarger;
+    	           while(indSmaller < end && (arr[indSmaller].compareTo(pivot) > -1) )
+    	               indSmaller++;
+    	           Comparable temp = arr[indLarger];
+    	           arr[indLarger] = arr[indSmaller];
+    	           arr[indSmaller] = temp;
+    	           pivotInd = indLarger;
+    	           indLarger++;
+    	       }
+    	       return pivotInd;
+    	  }
+    	  public void quickSortPivotIsLast(Comparable [] arr, int start, int end){
+    	      if(start >= end)
+    	          return;
+    	      int pivotInd = partition(arr, start, end);
+    	      for(int i = 0; i < arr.length; i++){
+    	          System.out.print(arr[i]);
+    	          if(i != arr.length-1)
+    	              System.out.print(" ");
+    	      }
+    	      System.out.println();
+    	      quickSortPivotIsLast(arr, start, pivotInd-1);
+    	      quickSortPivotIsLast(arr, pivotInd+1, end);
+    	  }
+
 
     
     public static void main(String[] args){
