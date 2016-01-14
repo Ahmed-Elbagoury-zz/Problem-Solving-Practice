@@ -19,4 +19,23 @@ public class LongestCommonPrefix {
         }
         return strs[0].substring(0, size);
     }
+    
+    
+    public String longestCommonPrefix2(String[] strs) {
+        if(strs == null || strs.length == 0)
+            return "";
+        String st1 = strs[0];
+        int ind = 0;
+        while(ind < st1.length()){
+            char curChar = st1.charAt(ind);
+            for(int i = 1; i < strs.length; i++){
+                String curStr = strs[i];
+                if(curStr.length() == ind || curStr.charAt(ind) != curChar)
+                    return strs[0].substring(0, ind);
+            }
+            ind++;
+            
+        }
+        return st1.substring(0, ind);
+    }
 }
