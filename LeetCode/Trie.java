@@ -46,7 +46,7 @@ public class Trie {
         return search(word, 0, root);    
     }
     
-    public boolean search(String word, int ind, TrieNode curNode){
+    private boolean search(String word, int ind, TrieNode curNode){
         if(ind == word.length()){
             if(curNode.words != 0)
                 return true;
