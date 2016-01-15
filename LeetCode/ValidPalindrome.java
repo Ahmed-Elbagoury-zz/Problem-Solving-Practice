@@ -1,5 +1,29 @@
 //https://leetcode.com/problems/valid-palindrome/
 public class ValidPalindrome {
+    public boolean isPalindromeNoExtraSpace(String s) {
+        if(s == null || s.length() <= 1) return true;
+        int st = 0;
+        int end = s.length()-1;
+        while(st < end){
+            char curChar = s.charAt(st);
+            while(st < end && !(curChar >= 'a' && curChar <= 'z') && !(curChar >= 'A' && curChar <= 'Z') && !(curChar <= '9' && curChar >= '0') ){
+                st ++;
+                curChar = s.charAt(st);
+            }
+            curChar = s.charAt(end);
+            while(st < end && !(curChar >= 'a' && curChar <= 'z') && !(curChar >= 'A' && curChar <= 'Z') && !(curChar <= '9' && curChar >= '0') ){
+                end--;
+                curChar = s.charAt(end);
+            }
+            if(!compareChar(s.charAt(st), s.charAt(end)))    
+                return false;
+            st++;
+            end--;
+        }
+        return true;
+    }
+    
+    
     public boolean isPalindrome(String s) {
         if(s == null || s.length() <= 1) return true;
         int len = 0;
