@@ -1,0 +1,102 @@
+import java.util.Random;
+
+public class WeightedRandGen<T> {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs == null || strs.length == 0)
+            return "";
+        String st1 = strs[0];
+        int ind = 0;
+        char curChar = st1.charAt(ind);
+        while(ind < st1.length()){
+            for(int i = 1; i < strs.length; i++){
+                String curStr = strs[i];
+                if(curStr.length() == ind || curStr.charAt(ind) != curChar)
+                    return strs[0].substring(ind);
+            }
+            ind++;
+        }
+        return st1.substring(ind);
+    }
+    
+    Random random = new Random(2);
+    public T generateWeightedRandomNoAuxiliaryArr(double [] weights, T [] vals){
+    	if(vals == null || vals.length == 0)
+    		return null;
+    	double weightSum = 0;
+    	for(double weight : weights)
+    		weightSum += weight;
+    	double r = random.nextDouble() * weightSum;
+//    	System.out.println("\t" + r);
+    	int ind = 0;
+    	for(double weight: weights){
+    		r -= weight;
+    		if(r < 0)
+    			return vals[ind];
+    		ind++;
+    	}
+    	return vals[vals.length-1];
+    }
+    
+    Random random2 = new Random(2);
+    public T generateWeightedRandom(double [] weights, T [] vals){
+    	if(vals == null || vals.length == 0)
+    		return null;
+    	double []weightSum = new double[weights.length];
+    	int ind = 0;
+    	for(double weight : weights){
+    		weightSum[ind] = weight;
+    		if(ind >0)
+    			weightSum[ind] += weightSum[ind-1];
+    		ind++;
+    	}
+    	double r = random2.nextDouble() * weightSum[weightSum.length-1];
+    	for(int i = 0; i < weightSum.length; i++){
+    		if(r < weightSum[i])
+    			return vals[i];
+    	}
+    	return vals[vals.length-1];
+    }
+    
+    Random random3 = new Random(2);
+    public T generateWeightedRandomBS(double [] weights, T [] vals){
+    	if(vals == null || vals.length == 0)
+    		return null;
+    	double []weightSum = new double[weights.length];
+    	int ind = 0;
+    	for(double weight : weights){
+    		weightSum[ind] = weight;
+    		if(ind >0)
+    			weightSum[ind] += weightSum[ind-1];
+    		ind++;
+    	}
+    	double r = random2.nextDouble() * weightSum[weightSum.length-1];
+    	int st = 0;
+    	int end = weightSum.length-1;
+    	int mid = st + (end-st)/2;
+    	while(st <= end){
+    		double weight = weightSum[mid];
+    		if(r <= weight)
+    			end = mid-1;
+    		else
+    			st = mid+1;
+    		mid = st + (end-st)/2;
+    	}
+    	return vals[mid];
+    }
+    
+    
+    public static void main(String [] args){
+    	WeightedRandGen<Integer> solution = new WeightedRandGen<Integer>();
+    	double [] weights = new double []{10, 20, 30, 40};
+    	Integer [] vals = new Integer [] {1, 2, 3, 4};
+    	for(int i = 0 ; i < 10; i++){
+    		System.out.print(solution.generateWeightedRandom(weights, vals) + "\t");
+    	}
+    	System.out.println("\n-----------");
+    	
+    	for(int i = 0 ; i < 10; i++){
+    		System.out.print(solution.generateWeightedRandomBS(weights, vals) + "\t");
+    	}
+    	System.out.println("\n-----------");
+    }
+}
