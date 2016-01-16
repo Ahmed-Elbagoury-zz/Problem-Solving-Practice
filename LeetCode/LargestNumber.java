@@ -1,3 +1,4 @@
+//http://yucoding.blogspot.ca/2015/03/leetcode-question-largest-number.html
 public class Solution {
     public String largestNumber(int[] nums) {
         if(nums == null || nums.length == 0)
