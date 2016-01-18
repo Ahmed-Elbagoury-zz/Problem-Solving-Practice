@@ -19,11 +19,11 @@ public class Solution {
     		   int x = -1;
     		   if(newAmount >= 0){
     		      if(memo[newAmount][j] != -1) 
-    			    x = memo[i][j] = memo[newAmount][j] + 1; 
+    			    x = memo[newAmount][j] + 1; 
     		   }
     		   int y  = -1;
     		   if(j > 0)
-    			   y = memo[i][j] = memo[i][j-1];   
+    			   y = memo[i][j-1];   
     		   if(x == -1)
     			   memo[i][j] = y;
     		   else if(y == -1)
