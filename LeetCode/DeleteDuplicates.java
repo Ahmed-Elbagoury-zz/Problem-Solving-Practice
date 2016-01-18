@@ -24,5 +24,23 @@ public class DeleteDuplicates{
         }
         return head;
     }
+    
+    public ListNode deleteDuplicatesNoExtraMemory(ListNode head) {
+        if(head == null)
+            return null;
+        ListNode prev = head;    
+        ListNode cur=  head.next;
+        while(cur != null){
+            if(cur.val == prev.val){//Delete cur node
+                prev.next = cur.next;
+                cur = cur.next;
+            }
+            else{
+                prev = cur;
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
 
 }
