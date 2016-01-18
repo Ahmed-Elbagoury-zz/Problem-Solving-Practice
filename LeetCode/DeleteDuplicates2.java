@@ -40,5 +40,25 @@ public class DeleteDuplicates2{
         }
         return head;
     }
+    
+    public ListNode deleteDuplicatesWithNoExtraMemory(ListNode head) {
+        if(head == null)
+            return null;
+        ListNode temp = new ListNode(0);    
+        temp.next = head;
+        ListNode prev = temp;
+        while(prev.next != null && prev.next.next != null){
+            if(prev.next.val == prev.next.next.val){
+                int duplicate = prev.next.val;
+                while(prev.next != null && prev.next.val == duplicate){
+                    prev.next = prev.next.next;
+                }
+            }
+            else{
+                prev = prev.next;
+            }
+        }
+        return temp.next;
+    }
 
 }
