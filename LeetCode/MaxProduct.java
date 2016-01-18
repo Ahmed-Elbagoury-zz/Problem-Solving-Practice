@@ -13,7 +13,7 @@ public class MaxProduct{
                  localMin = Math.min(localMin * nums[i], nums[i]);
              }
              else{
-                 int temp = Math.max(localMin * nums[i], nums[i]);
+                 int temp = Math.max(localMin * nums[i], nums[i]);//As localMax will be used in next line
                  localMin = Math.min(localMax * nums[i], nums[i]);
                  localMax = temp;
              }
