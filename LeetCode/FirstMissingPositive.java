@@ -35,5 +35,44 @@ public class FirstMissingPositive{
         
         return arr;
     }
+    
+    
+    public int firstMissingPositive2(int[] nums) {
+	       if(nums == null || nums.length == 0)
+	           return 1;
+	       int size = segregate2(nums);
+	       if(size == 0)
+	            return 1;
+	       for(int i = 0; i < size; i++){
+	           int index = Math.abs(nums[i]);
+	           if(index -1 < size && nums[index-1] > 0){
+	               nums[index-1] *= -1;
+	           }
+	       }
+	       for(int i = 0; i < nums.length; i++){
+	           if(nums[i] > 0)
+	                return i+1;
+	       }
+	       return size+1;     
+	    }
+	    
+	    public int segregate2(int [] nums){
+	        int positiveInd = nums.length-1;
+	        while(positiveInd >= 0 && nums[positiveInd] <= 0)
+	            positiveInd --;
+	        int i = 0;    
+	        while(i < positiveInd){
+	            if(nums[i] <= 0){
+	                int temp = nums[i];
+	                nums[i] = nums[positiveInd];
+	                nums[positiveInd] = temp;
+	                while(positiveInd >= 0 && nums[positiveInd] <= 0)
+	    	        	positiveInd --;
+	            }
+	            i++;
+	        }
+	        return positiveInd+1;
+	    }
+	    
 
 }
