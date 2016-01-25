@@ -30,3 +30,39 @@ class MinStack {
     }
 
 }
+
+
+
+class MinStack {
+    Stack<StackNode> stack = new Stack<StackNode>();
+    
+    public void push(int x) {
+        int curMin = getMin();
+        StackNode curNode = new StackNode(x, Math.min(x, curMin));   
+        stack.push(curNode);
+    }
+
+    public void pop() {
+        stack.pop();
+    }
+
+    public int top() {
+        return stack.peek().val;
+    }
+
+    public int getMin() {
+        if(stack.isEmpty())
+            return Integer.MAX_VALUE;
+        return stack.peek().min;    
+    }
+}
+
+class StackNode{
+    int val;
+    int min;
+    
+    public StackNode(int val, int min){
+        this.val = val;
+        this.min = min;
+    }
+}
