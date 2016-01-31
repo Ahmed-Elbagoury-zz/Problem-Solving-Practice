@@ -15,7 +15,7 @@ public class CountSort {
     		count[i] += count[i-1];
     	}
     	char[] sorted = new char[n];
-    	for(int i = 0; i < n; i++){
+    	for(int i = n-1; i >= 0; i--){
     		int index = (int)(str.charAt(i));
     		sorted[count[index]-1] = str.charAt(i);
     		count[index] --;
