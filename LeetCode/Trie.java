@@ -2,11 +2,11 @@ class TrieNode {
     // Initialize your data structure here.
     int words;
     int prefixes;
-    TrieNode[] edges;
+    TrieNode[] children;
     public TrieNode() {
         words = 0;
         prefixes = 0;
-        edges = new TrieNode[(int)('z' - 'a' + 1)];
+        children = new TrieNode[(int)('z' - 'a' + 1)];
     }
 }
 
@@ -25,18 +25,18 @@ public class Trie {
     }
     
     private void insert(String word, int ind, TrieNode curNode){
+        curNode.prefixes++;
         if(ind == word.length()){
             curNode.words++;
             return;
         }
         char curChar = word.charAt(ind);    
-        TrieNode edge = curNode.edges[(int) (curChar - 'a')];
-        if(edge == null){
-        	curNode.edges[(int) (curChar - 'a')] = new TrieNode();
-        	edge = curNode.edges[(int) (curChar - 'a')];
+        TrieNode nextNode = curNode.children[(int) (curChar - 'a')];
+        if(nextNode == null){
+        	curNode.children[(int) (curChar - 'a')] = new TrieNode();
+        	nextNode = curNode.children[(int) (curChar - 'a')];
         }
-        edge.prefixes ++;
-        insert(word, ind+1, edge);
+        insert(word, ind+1, nextNode);
     }
 
     // Returns if the word is in the trie.
@@ -54,10 +54,10 @@ public class Trie {
                 return false;
         }
         char curChar = word.charAt(ind);
-        TrieNode edge = curNode.edges[(int) (curChar - 'a')];
-        if(edge == null)
+        TrieNode nextNode = curNode.children[(int) (curChar - 'a')];
+        if(nextNode == null)
             return false;
-        return search(word, ind+1, edge);    
+        return search(word, ind+1, nextNode);    
     }
 
     // Returns if there is any word in the trie
@@ -76,10 +76,10 @@ public class Trie {
 	            return false;
 	    }
 	    char curChar = word.charAt(ind);
-	    TrieNode edge = curNode.edges[(int) (curChar - 'a')];
-	    if(edge == null)
+	    TrieNode nextNode = curNode.children[(int) (curChar - 'a')];
+	    if(nextNode == null)
 	        return false;
-	    return startsWith(word, ind+1, edge);    
+	    return startsWith(word, ind+1, nextNode);    
     }
     
     public static void main(String[] args){
