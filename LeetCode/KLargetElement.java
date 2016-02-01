@@ -1,6 +1,7 @@
 //https://leetcode.com/problems/kth-largest-element-in-an-array/
 public class KLargetElement{
 	public int findKthLargestMaxHeap(int[] nums, int k) {
+		//Time complexity: O(n + klogn)
 		PriorityQueue<Integer> queue = new PriorityQueue<Integer>(nums.length, new Comparator<Integer>() {
 			public int compare(Integer i1, Integer i2){
 				if(i1 > i2)
@@ -20,10 +21,10 @@ public class KLargetElement{
 		return sol;
     }
     public int findKthLargestBubbleSort(int[] nums, int k) {
+    	//Using bubble sort in O(k*n)
         if(nums == null || nums.length == 0)
             return -1;
         int n = nums.length;    
-        //Using bubble sort in O(k*n)
         for(int i = 0; i < k; i++){
             int max = nums[i];
             int ind = i;
@@ -40,6 +41,7 @@ public class KLargetElement{
     }
     
     public int findKthLargestMinHeap(int [] nums, int k){
+    	//O(k + (n-k)Logk) 
         if(nums == null || nums.length == 0)
             return -1;
         int n = nums.length;    
@@ -76,6 +78,7 @@ public class KLargetElement{
    }
    
    public int findKathLargest(int [] nums, int st, int end, int k){
+   	//O(n)
        int pivot = partition(nums, st, end);
        if(k == pivot)
            return nums[pivot];
