@@ -7,17 +7,19 @@ public class Solution {
 	   count++;
 	   if(low == high)
 		   return low;
+	   //Getting the middle without overflow	   
 	   int middle = 0;
 	   if(high > 0 && low < 0)
 		   middle = (high + low)/2;
 	   else
-	   		middle = low + (high - low)/2;
+	   	   middle = low + (high - low)/2;
 	   int flag = verify(middle);
-	   if(flag == 0)
-		   return middle;
-	   if(flag == 1)
-		   return guess(low, middle -1);
-	   return guess(middle+1, high);
+	   if(flag == 0)	//Correct choice
+		return middle;
+	   if(flag == 1)	//Middle is larger
+		return guess(low, middle -1);
+	   else
+	   	return guess(middle+1, high); //middle is smaller
    }
    
    public int verify(int curGuess){
