@@ -9,23 +9,19 @@
  */
 public class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        if(root == null)
-            return -1;
         Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode curNode = root;
-        while(k >= 0){
-            if(curNode != null){
-                stack.push(curNode);
-                curNode = curNode.left;
+        TreeNode ptr = root;
+        while(k > 0){
+            if(ptr == null){
+                k--;
+                ptr = stack.pop();
+                if(k == 0)
+                    return ptr.val;
+                ptr = ptr.right;    
             }
             else{
-                if(stack.isEmpty())
-                    return -1;
-                curNode = stack.pop();
-                k--;
-                if(k == 0)
-                    return curNode.val;
-                curNode = curNode.right;    
+                stack.push(ptr);
+                ptr = ptr.left;
             }
         }
         return -1;
