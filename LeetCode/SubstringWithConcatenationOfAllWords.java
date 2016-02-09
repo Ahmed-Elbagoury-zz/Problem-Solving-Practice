@@ -23,6 +23,7 @@ public class Solution {
             while(end <= n - m){
                 String str = s.substring(end, end + m);
                 if(!toBeFound.containsKey(str)){
+                        //The string is not required, so reset everything
                     end = end + m;
                     start = end;
                     found = new HashMap<String, Integer>();
@@ -36,6 +37,10 @@ public class Solution {
                 found.put(str, c);
                 count++;
                 while(found.get(str) > toBeFound.get(str)){
+                        /*To handle case like this: s = "butfoofoo^thebut"
+                        At the marked index we will have + one extra foo so we have to remove from the beggining
+                        till we have no extra "foo"s
+                        */
                     String left = s.substring(start, start+ m);
                     found.put(left, found.get(left)-1);
                     start += m;
@@ -43,8 +48,8 @@ public class Solution {
                 }
                 if(count == l){
                     solution.add(start);
-                    String str2 = s.substring(start, start+m);
-                    found.put(str2, found.get(str2)-1);
+                    String left = s.substring(start, start+m);
+                    found.put(left, found.get(left)-1);
                     count --;
                     start += m;
                 }
