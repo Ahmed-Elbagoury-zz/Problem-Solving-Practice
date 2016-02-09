@@ -40,11 +40,13 @@ public class PriorityHeap {
 				tempIndex = curIndex * 2;
 			}
 			if(tempIndex == -1){
+				//curIndex will be greater than size, so the loop will end
 				curIndex = size + 1;
 				continue;
 			}
 			int result = compartor.compare(cur, arr[tempIndex]);
 			if(result == -1){
+				//curIndex will be greater than size, so the loop will end
 				curIndex = size + 1;
 			}
 			else{
