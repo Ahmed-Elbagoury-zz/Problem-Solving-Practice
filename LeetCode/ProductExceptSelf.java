@@ -21,5 +21,23 @@ public class ProductExceptSelf{
         }
         return sol;
     }
+    //O(1) space
+    public int[] productExceptSelf(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return new int [0];
+        }
+        int n = nums.length;
+        int [] solution = new int [n];
+        solution[0] = 1;
+        for(int i = 1; i < n; i++){
+            solution[i] = nums[i-1] * solution[i-1];
+        }
+        int curProduct = 1;
+        for(int i = n-2; i >= 0; i--){
+            curProduct *= nums[i+1];
+            solution[i] *= curProduct;
+        }
+        return solution;
+    }
 
 }
