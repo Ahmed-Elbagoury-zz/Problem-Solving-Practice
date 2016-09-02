@@ -29,3 +29,43 @@ public class SumRoottoLeafNumbers{
     }
 
 }
+
+
+//---------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int sol = 0;
+    public int sumNumbers(TreeNode root) {
+        if(root == null){
+            return sol;
+        }
+        traverseTree(root, 0);
+        return sol;
+    }
+    
+    public void traverseTree(TreeNode root, int curVal){
+        if(root.left == null && root.right == null){
+            //Base case
+            sol += (curVal * 10) + root.val;
+            return;
+        }
+        curVal *= 10;
+        curVal += root.val;
+        if(root.left != null){
+            traverseTree(root.left, curVal);
+        }
+        if(root.right != null){
+            traverseTree(root.right, curVal);
+        }
+        curVal -= root.val;
+        curVal /= 10;
+    }
+}
