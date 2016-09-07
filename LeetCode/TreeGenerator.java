@@ -2,6 +2,9 @@
 //http://www.programcreek.com/2014/05/leetcode-unique-binary-search-trees-ii-java/ 
 public class TreeGenerator{
 	public List<TreeNode> generateTrees(int n) {
+	if(n <= 0){
+            return new LinkedList<TreeNode>();
+        }
         return helper(1, n);
     }
     
