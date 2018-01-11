@@ -1,4 +1,37 @@
 //https://leetcode.com/problems/coin-change/
+class Solution2 {
+    final int NOT_COMPUTE_YET = -2;
+    final int NOT_FEASIBLE = -1;
+    public int coinChange(int[] coins, int amount) {
+        int [] memo = new int [amount+1];
+        memo[0] = 0;
+        for(int i = 1; i < amount+1; i++){
+            memo[i] = NOT_COMPUTE_YET;
+        }
+        return coinChange(coins, amount, memo);
+    }
+    
+    private int coinChange(int [] coins, int amount, int[] memo){
+        if(amount < 0) return -1;
+        int minAmount = NOT_FEASIBLE;
+        if(memo[amount] == NOT_COMPUTE_YET){
+            for(int i = 0; i < coins.length; i++){
+                int temp = coinChange(coins, amount - coins[i], memo);
+                if(temp != NOT_FEASIBLE){
+                    if(minAmount == NOT_FEASIBLE){
+                        minAmount = temp + 1;
+                    }
+                    else{
+                        minAmount = Math.min(minAmount, temp+1);
+                    }
+                }
+            }
+            memo[amount] = minAmount;
+        }
+        return memo[amount];
+    }
+}
+
 public class Solution {
     int[]memo;
     int [] coins;
